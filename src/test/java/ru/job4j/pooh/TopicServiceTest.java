@@ -72,6 +72,6 @@ public class TopicServiceTest {
                 new Req("GETT", "topic", "weather", paramForSubscriber1)
         );
         assertThat(result1.text(), is(""));
-        assertThat(result1.status(), is("400"));
+        assertThat(result1.status(), is("501"));
     }
 }

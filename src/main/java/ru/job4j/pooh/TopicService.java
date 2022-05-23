@@ -18,8 +18,8 @@ public class TopicService implements Service {
         String param = req.getParam();
 
         if ("POST".equals(type)) {
-            for (var user : topics.keySet()) {
-                var queue = topics.get(user).get(name);
+            for (var user : topics.values()) {
+                var queue = user.get(name);
                 if (queue != null) {
                     queue.add(param);
                 }
@@ -29,10 +29,13 @@ public class TopicService implements Service {
             var tmp = topics.get(param).putIfAbsent(name, new ConcurrentLinkedQueue<>());
             if (tmp != null) {
                 text = tmp.poll();
+                if (text == null) {
+                    text = "";
+                }
                 status = "200";
             }
         } else {
-            status = "400";
+            status = "501";
         }
         return new Resp(text, status);
     }

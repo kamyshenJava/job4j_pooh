@@ -49,6 +49,6 @@ public class QueueServiceTest {
                 new Req("GETT", "queue", "weather", null)
         );
         assertThat(result.text(), is(""));
-        assertThat(result.status(), is("400"));
+        assertThat(result.status(), is("501"));
     }
 }

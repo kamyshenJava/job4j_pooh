@@ -18,10 +18,10 @@ public class QueueService implements Service {
             map.putIfAbsent(name, new ConcurrentLinkedQueue<>());
             map.get(name).add(req.getParam());
         } else if ("GET".equals(type)) {
-            text = map.get(name).poll();
+            text = map.getOrDefault(name, new ConcurrentLinkedQueue<>()).poll();
         } else {
             text = "";
-            status = "400";
+            status = "501";
         }
         if (Objects.equals(text, null)) {
             text = "";
